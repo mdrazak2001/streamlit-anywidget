@@ -15,11 +15,7 @@ if not _RELEASE:
 else:
     parent_dir = os.path.dirname(os.path.abspath(__file__))
     build_dir = os.path.join(parent_dir, "frontend/build")
-
-    _component_func = components.declare_component(
-        "streamlit_anywidget", 
-        path=build_dir
-    )
+    _component_func = components.declare_component("streamlit_anywidget", path=build_dir)
 
 def anywidget(widget_instance, key=None):
     """
@@ -53,6 +49,18 @@ def anywidget(widget_instance, key=None):
             st.error(f"Failed to call _esm function: {str(e)}")
             return {}
     
+    # Get CSS content if available
+    css_content = None
+    if hasattr(widget_instance, "_css"):
+        css_attr = getattr(widget_instance, "_css")
+        if callable(css_attr) and not inspect.isclass(css_attr):
+            try:
+                css_content = css_attr()
+            except Exception as e:
+                st.warning(f"Failed to call _css function: {str(e)}")
+        else:
+            css_content = css_attr
+    
     # Extract the widget's current state - only get traits marked with sync=True
     widget_data = {}
     for name, trait in widget_instance.traits().items():
@@ -75,6 +83,7 @@ def anywidget(widget_instance, key=None):
         widget_data=widget_data,
         widget_class=widget_instance.__class__.__name__,
         esm_content=esm_content,
+        css_content=css_content,
         key=key,
         default={}
     )

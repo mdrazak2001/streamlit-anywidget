@@ -136,6 +136,71 @@ try:
             "text_value": text_widget.text
         })
 
+    # Add a separator
+    st.markdown("---")
+    st.subheader("Module Counter Widget Test")
+    # Create a counter widget using module-based format
+    class ModuleCounterWidget(AnyWidget):
+        value = traitlets.Int(0).tag(sync=True)
+        
+        _esm = """
+        function render({ model, el }) {
+            // Create function to get current value from model
+            let count = () => model.get("value");
+            
+            // Create button element
+            let btn = document.createElement("button");
+            btn.classList.add("counter-button");
+            btn.innerHTML = `Module-based Counter: ${count()}`;
+            
+            // Handle click event
+            btn.addEventListener("click", () => {
+                model.set("value", count() + 1);
+                model.save_changes();
+                // Update UI immediately
+                btn.innerHTML = `Module-based Counter: ${count()}`;
+            });
+            
+            // Listen for changes from Python
+            model.on("change:value", () => {
+                console.log("Value changed to:", count());
+                btn.innerHTML = `Module-based Counter: ${count()}`;
+            });
+            
+            // Add to DOM
+            el.appendChild(btn);
+        }
+        export default { render };
+        """
+        
+        _css = """
+        .counter-button {
+            background-image: linear-gradient(to right, #a1c4fd, #c2e9fb);
+            border: 0;
+            border-radius: 10px;
+            padding: 10px 50px;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .counter-button:hover {
+            background-image: linear-gradient(to right, #c2e9fb, #a1c4fd);
+        }
+        """
+    
+    # Create the module-based counter widget
+    module_counter = ModuleCounterWidget()
+    module_counter_state = anywidget(module_counter, key="module_counter")
+
+    # Show debug info
+    with st.expander("Module Counter Debug Info"):
+        st.write("Module-based Counter State:", module_counter_state)
+        st.json({
+            "module_counter_value": module_counter.value
+        })
+
+
+
 
 except ImportError:
     st.error("""

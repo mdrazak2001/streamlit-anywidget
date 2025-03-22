@@ -5,7 +5,7 @@ import json
 import inspect
 
 # Determine if the component should use development server or the bundled version
-_RELEASE = False
+_RELEASE = True
 
 if not _RELEASE:
     _component_func = components.declare_component(

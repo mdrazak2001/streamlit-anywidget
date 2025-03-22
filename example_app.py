@@ -88,7 +88,7 @@ try:
     
     # Add a text input widget
     class TextWidget(AnyWidget):
-        text = traitlets.Unicode("Hello World").tag(sync=True)
+        text = traitlets.Unicode("Streamlit x AnyWidget").tag(sync=True)
         
         _esm = """
         export default class TextWidget {

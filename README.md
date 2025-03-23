@@ -30,49 +30,67 @@ import traitlets
 
 # Create a simple counter widget
 class CounterWidget(AnyWidget):
-    value = traitlets.Int(0).tag(sync=True)
-    
-    _esm = """
-    export default class CounterWidget {
-      constructor(args) {
-        this.container = args.container;
-        this.value = args.value || 0;
-        this.render();
-        this.callbacks = [];
-      }
-      
-      render() {
-        this.container.innerHTML = `
-          <div style="padding: 20px; border: 1px solid #ddd; border-radius: 8px; text-align: center;">
-            <h2>Counter: ${this.value}</h2>
-            <button id="increment" style="padding: 8px 16px; background: #4CAF50; color: white; border-radius: 4px;">
-              Increment
-            </button>
-          </div>
-        `;
+        value = traitlets.Int(0).tag(sync=True)
         
-        this.container.querySelector('#increment').addEventListener('click', () => {
-          this.value += 1;
-          this.render();
-          this.callbacks.forEach(callback => callback({ value: this.value }));
-        });
-      }
-      
-      on(event, callback) {
-        if (event === 'change') {
-          this.callbacks.push(callback);
+        _esm = """
+        function render({ model, el }) {
+            // Create function to get current value from model
+            let count = () => model.get("value");
+            
+            // Create button element
+            let btn = document.createElement("button");
+            btn.classList.add("counter-button");
+            btn.innerHTML = `Module-based Counter: ${count()}`;
+            
+            // Handle click event
+            btn.addEventListener("click", () => {
+                model.set("value", count() + 1);
+                model.save_changes();
+                // Update UI immediately
+                btn.innerHTML = `Module-based Counter: ${count()}`;
+            });
+            
+            // Listen for changes from Python
+            model.on("change:value", () => {
+                console.log("Value changed to:", count());
+                btn.innerHTML = `Module-based Counter: ${count()}`;
+            });
+            
+            // Add to DOM
+            el.appendChild(btn);
         }
-      }
-    }
-    """
+        export default { render };
+        """
+        
+        _css = """
+        .counter-button {
+            background-image: linear-gradient(to right, #a1c4fd, #c2e9fb);
+            border: 0;
+            border-radius: 10px;
+            padding: 10px 50px;
+            color: black;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .counter-button:hover {
+            background-image: linear-gradient(to right, #c2e9fb, #a1c4fd);
+        }
+        """
 
 # Display the widget in Streamlit
 st.title("Counter Widget Example")
 counter = CounterWidget()
-widget_state = anywidget(counter, key="counter")
+counter_state = anywidget(counter, key="counter")
 
 # Interact with the widget state
 st.write(f"Current value: {counter.value}")
+
+# Show debug info
+with st.expander("Module Counter Debug Info"):
+    st.write("Module-based Counter State:", counter_state)
+    st.json({
+        "module_counter_value": counter.value
+    })
 ```
 
 ## 🎮 Demo Widgets
@@ -95,6 +113,12 @@ Using the module-based format for more complex widgets.
 
 ![Module Counter Demo](https://raw.githubusercontent.com/mdrazak2001/streamlit-anywidget/refs/heads/main/Module_Counter.gif)
 
+## 🎯 Try the Demos
+
+To see all available widgets in action, run:
+```bash
+streamlit run examples/examples.py
+```
 
 ## 🔄 How It Works
 

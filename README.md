@@ -81,19 +81,20 @@ st.write(f"Current value: {counter.value}")
 
 A simple counter widget showcasing basic interactivity.
 
-![Alt Text](Counter.gif)
+![Counter Demo](https://raw.githubusercontent.com/mdrazak2001/streamlit-anywidget/refs/heads/main/Counter.gif)
 
 ### Text Input Widget
 
 Sync text input between Streamlit and a custom text widget.
 
-![Alt Text](Text.gif)
+![Text Demo](https://raw.githubusercontent.com/mdrazak2001/streamlit-anywidget/refs/heads/main/Text.gif)
 
 ### Module-based Widget
 
 Using the module-based format for more complex widgets.
 
-![Alt Text](Module_Counter.gif)
+![Module Counter Demo](https://raw.githubusercontent.com/mdrazak2001/streamlit-anywidget/refs/heads/main/Module_Counter.gif)
+
 
 ## 🔄 How It Works
 

@@ -6,14 +6,19 @@ this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
 
 setuptools.setup(
-    name="streamlit-anywidget",
-    version="0.1.1",
+    name="streamlit_anywidget",
+    version="0.1.2",
     author="Mohammed Razak",
     author_email="mohammedrazak2001@gmail.com",
-    description="Streamlit component that enables anywidget support",
+    description="Streamlit component that enables anywidget support.",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/mdrazak2001/streamlit-anywidget",
+    project_urls={
+        "Homepage": "https://github.com/mdrazak2001/streamlit-anywidget",
+        "Documentation": "https://github.com/mdrazak2001/streamlit-anywidget#readme",
+        "Source Code": "https://github.com/mdrazak2001/streamlit-anywidget",
+    },
     packages=setuptools.find_packages(),
     include_package_data=True,
     classifiers=[

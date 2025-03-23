@@ -134,3 +134,5 @@ frontend/cypress/snapshots/linux/1x
 
 # Performance suite output
 **/.benchmarks/
+
+.env

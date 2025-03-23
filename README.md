@@ -12,6 +12,8 @@ A Streamlit component that brings the power of [AnyWidget](https://github.com/ma
 
 ## 📦 Installation
 
+Streamlit-AnyWidget is distributed via [PyPI](https://pypi.org/project/streamlit-anywidget/).
+
 ```bash
 pip install streamlit-anywidget
 ```

@@ -117,7 +117,7 @@ Using the module-based format for more complex widgets.
 
 To see all available widgets in action, run:
 ```bash
-streamlit run examples/examples.py
+streamlit run examples.py
 ```
 
 ## 🔄 How It Works

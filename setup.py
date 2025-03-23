@@ -7,7 +7,7 @@ long_description = (this_directory / "README.md").read_text()
 
 setuptools.setup(
     name="streamlit_anywidget",
-    version="0.1.2",
+    version="0.1.3",
     author="Mohammed Razak",
     author_email="mohammedrazak2001@gmail.com",
     description="Streamlit component that enables anywidget support.",

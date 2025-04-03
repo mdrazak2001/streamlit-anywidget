@@ -2,7 +2,9 @@
 
 
 A Streamlit component that brings the power of [AnyWidget](https://github.com/manzt/anywidget) to Streamlit applications. Create and use custom interactive widgets directly in your Streamlit apps without iframe limitations.
-
+[![Downloads](https://static.pepy.tech/badge/streamlit-anywidget)](https://pepy.tech/project/streamlit-anywidget)
+[![Downloads](https://static.pepy.tech/badge/streamlit-anywidget/month)](https://pepy.tech/project/streamlit-anywidget)
+[![Downloads](https://static.pepy.tech/badge/streamlit-anywidget/week)](https://pepy.tech/project/streamlit-anywidget)
 ## 🌟 Features
 
 - **Full AnyWidget Compatibility**: Works with both class-based and module-based widget formats
